@@ -1,0 +1,3 @@
+- interpretar os valores de entrada como valores inteiros com sinal e magnitude e complemento de 2
+- realizar operações de soma e subtração em SM e C2
+- expressar a resposta tanto em base binária quanto em base decimal
