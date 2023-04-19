@@ -1,5 +1,7 @@
-- Converter de SM para decimal
-- Converter de C2 para decimal
+- Converter de SM para binário ✅
+- Converter de C2 para binário ✅
+- Converter de SM para decimal ✅
+- Converter de C2 para decimal ✅
 - Calcular a soma em SM
 - Dar o resultado em decimal
 - Calcular a subtração em SM
