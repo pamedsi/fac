@@ -1,27 +1,35 @@
-import { inverteBits } from "./funcoes-ajudadoras.ts"
-import { somarBinariosPositivos } from "./soma.ts"
+import { inverteBits, removerZeros } from "./funcoes-ajudadoras.ts"
+import { somarBinariosPositivos } from "./operacoes.ts"
 
-export const SMParaBinario = function(numeroBinario: string) {
-  let numeroEmSM = ""
-  if (numeroBinario[0] === "1") numeroEmSM = "-"
+export const SMParaBinario = function(numeroEmSM: string) {
+  const semDigitoDeSinal = numeroEmSM.split('')
+  semDigitoDeSinal.shift()
+  const semZeros = removerZeros(semDigitoDeSinal.join(''))
 
-  let index = 1
-  // Esse loop for serve para achar onde o número começa e descartar os zeros.
-  for (index; index < numeroBinario.length; index++) if (numeroBinario[index] === "1") break
-
-  // Esse vai pegar os bits de onde o número começa até o final da string.
-  for (let i = index; i < numeroBinario.length; i++) numeroEmSM += numeroBinario[i]
-
-  return numeroEmSM
+  if (numeroEmSM[0] === "0") return semZeros
+  return "-" + semZeros
 }
 
-export const C2paraBinario = function (numeroBinario: string) {
-  if (numeroBinario[0] === "0") return SMParaBinario(numeroBinario)
-  const representacaoPositiva = somarBinariosPositivos(inverteBits(numeroBinario), "1").split('')
+export const C2paraBinario = function (numeroEmC2: string) {
+  if (numeroEmC2[0] === "0") return SMParaBinario(numeroEmC2)
+  const representacaoPositiva = somarBinariosPositivos(inverteBits(numeroEmC2), "1").split('')
 
   while (representacaoPositiva[0] === "0") representacaoPositiva.shift()
   representacaoPositiva.unshift("-")
   return representacaoPositiva.join('')
+}
+
+export const binarioParaC2 = function (numeroBinario: string, bits: number) {
+  if (numeroBinario[0] === "-") {
+    // split('') serve para transformar a string em lista
+    // shift() serve para remover o primeiro elemento da lista, no caso, o sinal "-""
+    const representacaoPositiva = numeroBinario.split('')
+    representacaoPositiva.shift()
+    for (let index = representacaoPositiva.length; index < bits; index++) representacaoPositiva.unshift("0")
+
+    const bitsInvertidos = inverteBits(representacaoPositiva.join(''))
+    return somarBinariosPositivos(bitsInvertidos, "1")
+  } 
 }
 
 export const SMparaDec = function (numeroEmSM: string) {
