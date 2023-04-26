@@ -9,6 +9,13 @@ export const modulo = function (valor: number) {
   return -valor
 }
 
+export const moduloBinario = function(valorBinario: string) {
+  if (valorBinario[0] !== "-") return valorBinario
+  const modulo = valorBinario.split('')
+  modulo.shift()
+  return modulo.join('')
+}
+
 export const pegarDoProximo = function (valor: string, index: number) {
   const posicaoDePegarDoProximo = index
   const valorAlterado = valor.split('')

@@ -12,11 +12,8 @@ export const SMParaBinario = function(numeroEmSM: string) {
 
 export const C2paraBinario = function (numeroEmC2: string) {
   if (numeroEmC2[0] === "0") return SMParaBinario(numeroEmC2)
-  const representacaoPositiva = somarBinariosPositivos(inverteBits(numeroEmC2), "1").split('')
-
-  while (representacaoPositiva[0] === "0") representacaoPositiva.shift()
-  representacaoPositiva.unshift("-")
-  return representacaoPositiva.join('')
+  const numeroBinario = "-" + removerZeros(somarBinariosPositivos(inverteBits(numeroEmC2), "1"))
+  return numeroBinario
 }
 
 export const binarioParaC2 = function (numeroBinario: string, bits: number) {
@@ -29,7 +26,9 @@ export const binarioParaC2 = function (numeroBinario: string, bits: number) {
 
     const bitsInvertidos = inverteBits(representacaoPositiva.join(''))
     return somarBinariosPositivos(bitsInvertidos, "1")
-  } 
+  }
+
+  //pendente...
 }
 
 export const SMparaDec = function (numeroEmSM: string) {
