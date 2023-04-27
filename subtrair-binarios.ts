@@ -1,5 +1,5 @@
 import { C2paraBinario, SMParaBinario } from "./conversores.ts"
-import { modulo, moduloBinario } from "./funcoes-ajudadoras.ts";
+import { modulo, moduloBinario, removerZeros } from "./funcoes-ajudadoras.ts";
 import { somarBinariosPositivos } from "./operacoes.ts"
 
 export const subtrairBinarios = function (valor1: string, valor2: string, tipo?: "SM" | "C2" ) {
@@ -17,6 +17,15 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
       [valor1EmBinario, valor2EmBinario] = [valor1, valor2]
       break
   }
+
+  // A conversão para decimal é feita apenas para saber qual número é maior.
+  const [valor1EmDecimal, valor2EmDecimal] = [parseInt(valor1EmBinario, 2), parseInt(valor2EmBinario, 2)]
+  valor1EmBinario = moduloBinario(valor1EmBinario)
+  valor2EmBinario = moduloBinario(valor2EmBinario)
+
+  const resultado: string[] = []
+  let index1 = valor1EmBinario.length - 1
+  let index2 = valor2EmBinario.length - 1
 
   const pegarDoProximo = function (valor: string, index: number) {
     const posicaoDePegarDoProximo = index
@@ -39,7 +48,10 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
     return valorAlterado.join('')
   }
 
-  const calcularSubtracao = function(maiorValor: string, menorValor: string) {
+  const calcularSubtracao = function(maiorValor: string, menorValor: string, valor2EhMaior?: true) {
+    if (valor2EhMaior) [index1, index2] = [index2, index1]
+    let contador = 0
+
     while (menorValor[index2]) {
       if(maiorValor[index1] === "1" && menorValor[index2] === "0") {
         resultado.unshift("1")
@@ -57,47 +69,42 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
         index2--
         resultado.unshift("0")
       }
+      contador++
     }
+    return maiorValor
   }
 
-  const resultado = []
-  let index1 = valor1.length - 1
-  let index2 = valor2.length - 1
-
-  // A conversão para decimal é feita apenas para saber qual número é maior.
-  const [valor1EmDecimal, valor2EmDecimal] = [parseInt(valor1EmBinario, 2), parseInt(valor2EmBinario, 2)]
-
   if (valor1EmDecimal === valor2EmDecimal) resultado.push("0")
-  else if (valor1EmDecimal > 0 && valor2EmDecimal < 0) {
+  else if (valor1EmDecimal >= 0 && valor2EmDecimal < 0) {
     const soma = somarBinariosPositivos(valor1EmBinario, moduloBinario(valor2EmBinario))
     resultado.push(...soma)
   }
-  else if (valor1EmDecimal < 0 && valor2EmDecimal > 0) {
+  else if (valor1EmDecimal < 0 && valor2EmDecimal >= 0) {
     const soma = somarBinariosPositivos(moduloBinario(valor1EmBinario), valor2EmBinario)
     resultado.push(...soma)
     resultado.unshift('-')
   }
-  else if (valor1EmDecimal > valor2EmDecimal && valor2EmDecimal > 0) calcularSubtracao(valor1EmBinario, valor2EmBinario)
-  else if (valor2EmDecimal > valor1EmDecimal && valor1EmDecimal > 0) {
-    calcularSubtracao(valor2EmBinario, valor1EmBinario)
+  else if (valor1EmDecimal > valor2EmDecimal && valor2EmDecimal >= 0)  {
+    valor1EmBinario = calcularSubtracao(valor1EmBinario, valor2EmBinario)
+    for (let index = index1; index >= 0; index--) resultado.unshift(valor1EmBinario[index])
+  }
+  else if (valor2EmDecimal > valor1EmDecimal && valor1EmDecimal >= 0) {
+    valor2EmBinario = calcularSubtracao(valor2EmBinario, valor1EmBinario, true)
+    for (let index = index1; index >= 0; index--) resultado.unshift((valor2EmBinario[index]))
     resultado.unshift('-')
   }
   else if (valor1EmDecimal < 0 && valor2EmDecimal < 0 && modulo(valor1EmDecimal) > modulo(valor2EmDecimal)) {
-    calcularSubtracao(valor1EmBinario, valor2EmBinario)
+    valor1EmBinario = calcularSubtracao(valor1EmBinario, valor2EmBinario)
+    for (let index = index1; index >= 0; index--) resultado.unshift(valor1EmBinario[index])
     resultado.unshift('-')
   }
   else if (valor1EmDecimal < 0 && valor2EmDecimal < 0 && modulo(valor1EmDecimal) < modulo(valor2EmDecimal)) {
-    calcularSubtracao(valor2EmBinario, valor1EmBinario)
+    valor2EmBinario = calcularSubtracao(valor2EmBinario, valor1EmBinario, true)
+    // Passei o index1 para se referir ao index do valor2, porque quando é passado "true" como terceiro argumento da função
+    // a função "calcularSubtracao" inverte os valores, index1 passar a ser index2 e vice-versa.
+    for (let index = index1; index >= 0; index--) resultado.unshift((valor2EmBinario[index]))
   }
 
-  return resultado.join('')
-
+  if (resultado.join('') === "0") return "0"
+  return removerZeros(resultado.join(''))
 }
-
-// A = valor1 e valor2 sendo iguais => ex: (-4,-4) ... resulta em 0
-// B = valor1 sendo positivo e valor2 negativo => ex: (5,-3) ... resulta num positivo ok
-// C = valor2 sendo positivo e valor1 negativo => ex: (-3,5) ... resulta num negativo ok
-// D = valor1 sendo maior que valor2 (os 2 positivos) => ex: (4, 2) ... resulta num positivo ok
-// E = valor2 sendo maior que valor1 (os 2 positivos) => ex: (1, 2) ... resulta num negativo ok
-// F = valor1 sendo (em módulo) maior que valor2 (os 2 negativos) => ex: (-3, -2) ... resulta num negativo ok
-// G = valor2 sendo (em módulo) maior que valor1 (os 2 negativos) => ex: (-1, -2) ... resulta num positivo ok

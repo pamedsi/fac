@@ -40,12 +40,13 @@ export const pegarDoProximo = function (valor: string, index: number) {
 export const removerZeros = function (numeroBinario: string) {
   let retorno = ''
   let index = 0
+
   // Esse loop for serve para achar onde o número começa e descartar os zeros.
   for (index; index < numeroBinario.length; index++) if (numeroBinario[index] === "1") break
 
   // Esse vai pegar os bits de onde o número começa até o final da string.
-
   for (let i = index; i < numeroBinario.length; i++) retorno += numeroBinario[i]  
 
+  if (numeroBinario[0] === "-") return "-" + retorno
   return retorno
 }
