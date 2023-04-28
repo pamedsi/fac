@@ -1,5 +1,5 @@
 import { inverteBits, removerZeros } from "./funcoes-ajudadoras.ts"
-import { somarBinariosPositivos } from "./operacoes.ts"
+import { somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
 
 export const SMParaBinario = function(numeroEmSM: string) {
   const semDigitoDeSinal = numeroEmSM.split('')
@@ -19,7 +19,7 @@ export const C2paraBinario = function (numeroEmC2: string) {
 export const binarioParaC2 = function (numeroBinario: string, bits: number) {
   if (numeroBinario[0] === "-") {
     // split('') serve para transformar a string em lista
-    // shift() serve para remover o primeiro elemento da lista, no caso, o sinal "-""
+    // shift() serve para remover o primeiro elemento da lista, no caso, o sinal "-"
     const representacaoPositiva = numeroBinario.split('')
     representacaoPositiva.shift()
     for (let index = representacaoPositiva.length; index < bits; index++) representacaoPositiva.unshift("0")
@@ -49,5 +49,5 @@ export const C2paraDec = function (numeroEmC2: string) {
   if (numeroEmC2[0] === "0") return SMparaDec(numeroEmC2)
 
   const representacaoPositiva = somarBinariosPositivos(inverteBits(numeroEmC2), "1")
-  return "-" + SMparaDec(representacaoPositiva)
+  return -SMparaDec(representacaoPositiva)
 }

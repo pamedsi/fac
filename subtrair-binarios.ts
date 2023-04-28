@@ -1,6 +1,6 @@
 import { C2paraBinario, SMParaBinario } from "./conversores.ts"
 import { modulo, moduloBinario, removerZeros } from "./funcoes-ajudadoras.ts";
-import { somarBinariosPositivos } from "./operacoes.ts"
+import { somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
 
 export const subtrairBinarios = function (valor1: string, valor2: string, tipo?: "SM" | "C2" ) {
   if (tipo && tipo !== "C2" && tipo !== "SM") throw new Error("Tipo inválido! Insira apenas 'SM' para Sinal e Magnitude ou 'C2' para Complemento a 2.")

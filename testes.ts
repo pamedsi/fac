@@ -167,7 +167,7 @@ import { somarBinarios } from "./somar-binarios.ts";
 const executarTestesSubtrairBinarios = () => {
   let falhou = false;
 
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 1000000; i++) {
     const valor1 = Math.floor(Math.random() * 2000) - 1000;
     const valor2 = Math.floor(Math.random() * 2000) - 1000;
     
@@ -191,14 +191,14 @@ const executarTestesSubtrairBinarios = () => {
   }
 
   if (!falhou) {
-    console.log("Todos os testes passaram!");
+    console.log("Todos os testes de subtrair passaram!");
   }
 }
 
 const executarTestesSomarBinarios = () => {
   let falhou = false;
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 1000000; i++) {
     const valor1 = Math.floor(Math.random() * 2000) - 1000;
     const valor2 = Math.floor(Math.random() * 2000) - 1000;
 
@@ -222,40 +222,9 @@ const executarTestesSomarBinarios = () => {
   }
 
   if (!falhou) {
-    console.log("Todos os testes passaram!");
+    console.log("Todos os testes de somar passaram!");
   }
 }
 
 executarTestesSubtrairBinarios();
 executarTestesSomarBinarios();
-
-// A = valor1 e valor2 sendo iguais => ex: (0,0) ... resulta em 0
-// B = valor1 sendo positivo e valor2 negativo => ex: (100,-100) ... resulta num positivo ok
-// C = valor2 sendo positivo e valor1 negativo => ex: (-11,11) ... resulta num negativo ok
-// D = valor1 sendo maior que valor2 (os 2 positivos) => ex: (101, 10) ... resulta num positivo ok
-// E = valor2 sendo maior que valor1 (os 2 positivos) => ex: (1000, 1111) ... resulta num negativo ok
-// F = valor1 sendo (em módulo) maior que valor2 (os 2 negativos) => ex: (-1010, -101) ... resulta num negativo ok
-// G = valor2 sendo (em módulo) maior que valor1 (os 2 negativos) => ex: (-1011, -111001) ... resulta num positivo ok
-
-// test('subtrairBinarios', () => {
-//   expect(subtrairBinarios('0', '0')).toBe('0');
-//   expect(subtrairBinarios('1', '0')).toBe('1');
-//   expect(subtrairBinarios('101', '1')).toBe('100');
-//   expect(subtrairBinarios('111', '10')).toBe('101');
-//   expect(subtrairBinarios('101', '11')).toBe('10');
-//   expect(subtrairBinarios('110', '101')).toBe('1');
-//   expect(subtrairBinarios('111', '100')).toBe('11');
-//   expect(subtrairBinarios('110', '100')).toBe('10');
-//   expect(subtrairBinarios('111', '101')).toBe('10');
-//   expect(subtrairBinarios('1010', '110')).toBe('100');
-//   expect(subtrairBinarios('1011', '1100')).toBe('-1');
-//   expect(subtrairBinarios('1100', '1011')).toBe('1');
-//   expect(subtrairBinarios('10101', '10100')).toBe('1');
-//   expect(subtrairBinarios('10101', '1111')).toBe('110');
-//   expect(subtrairBinarios('101010', '101010')).toBe('0');
-//   expect(subtrairBinarios('111111', '101010')).toBe('10101');
-//   expect(subtrairBinarios('1100101', '11001')).toBe('1001100');
-//   expect(subtrairBinarios('1100101', '100')).toBe('1100001');
-//   expect(subtrairBinarios('101010101', '11111111')).toBe('1010110');
-//   expect(subtrairBinarios('100000000', '11111111')).toBe('1');
-// });
