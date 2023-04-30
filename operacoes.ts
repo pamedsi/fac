@@ -97,41 +97,67 @@ export const operarC2 = function(valor1: string, valor2: string, bits: number, o
 
   const valor1EmDecimal = C2paraDec(valor1)
   const valor2EmDecimal = C2paraDec(valor2)
-  const valor1SemBitDeSinal = removerPrimeiroBit(valor1)
-  const valor2SemBitDeSinal = removerPrimeiroBit(valor2)
   const resultado = []
 
   switch (operacao) {
     case "+":
     if (valor1[0] === valor2[0] && valor1[0] === "0") {
-      const soma = somarBinariosPositivos(valor1SemBitDeSinal, valor2SemBitDeSinal).split('')
+      const soma = somarBinariosPositivos(valor1, valor2).split('')
       if (soma.length === bits) soma.shift()
-      while (resultado.length < bits - 1) resultado.unshift("0")
-      // if (valor1[0] === "1") resultado.unshift("1")
-      // else resultado.unshift("0")
+      else while (resultado.length < bits) resultado.unshift("0")
     }
-    else if (modulo(valor1EmDecimal) > modulo(valor2EmDecimal) && valor2[0] === "1") {
-      const soma = somarBinariosPositivos(valor1SemBitDeSinal, valor2SemBitDeSinal).split('')
-      if (soma.length === bits) soma.shift()
-      while (resultado.length < bits) resultado.unshift("0")
+    else if (modulo(valor1EmDecimal) >= modulo(valor2EmDecimal) && valor2[0] === "1") {
+      const valor1Positivo = somarBinariosPositivos(inverteBits(valor1), "1")
+      const valor2Positivo = somarBinariosPositivos(inverteBits(valor2), "1")
+      const soma = somarBinariosPositivos(valor1Positivo, valor2Positivo)
+      resultado.push(...somarBinariosPositivos(inverteBits(soma), "1"))
+      if (resultado.length > bits) resultado.shift()
+      else while (resultado.length < bits) resultado.unshift("0")
     }
-    // else if (modulo(valor1EmDecimal) > modulo(valor2EmDecimal) && valor1[0] === "1") {
-    //   const soma = subtrairBinarios(valor1SemBitDeSinal, valor2SemBitDeSinal).split('')
-    //   if (soma.length === bits) soma.shift()
-    //   while (resultado.length < bits) resultado.unshift("0")
-    // }
+    else if (modulo(valor1EmDecimal) > modulo(valor2EmDecimal) && valor1[0] === "1") {
+      const valor2Negativo = somarBinariosPositivos(inverteBits(valor2), "1")
+      const valor1Positivo = somarBinariosPositivos(inverteBits(valor1), "1")
+      const soma = somarBinariosPositivos(valor1Positivo, valor2Negativo)
+      resultado.push(...somarBinariosPositivos(inverteBits(soma), "1"))
+      if (resultado.length > bits) resultado.shift()
+    }
+    else if (modulo(valor2EmDecimal) > modulo(valor1EmDecimal) && valor2[0] === "1") {
+      const valor1Negativo = somarBinariosPositivos(inverteBits(valor1), "1")
+      const valor2Positivo = somarBinariosPositivos(inverteBits(valor2), "1")
+      const soma = somarBinariosPositivos(valor2Positivo, valor1Negativo)
+      resultado.push(...somarBinariosPositivos(inverteBits(soma), "1"))
+      if (resultado.length > bits) resultado.shift()
+      else while (resultado.length < bits) resultado.unshift("0")
+    }
+    else if (modulo(valor2EmDecimal) > modulo(valor1EmDecimal) && valor2[0] === "0") {
+      const soma = somarBinariosPositivos(valor2, valor1)
+      resultado.push(...soma)
+      if (resultado.length > bits) resultado.shift()
+      else while (resultado.length < bits) resultado.unshift("0")
+    }
       break;
     case "-":
-
+      if (valor1 === valor2) while (resultado.length < bits) resultado.push("0")
+      else {
+        const valor2Positivo = somarBinariosPositivos(inverteBits(valor2), "1")
+        const soma = somarBinariosPositivos(valor1, valor2Positivo)
+        resultado.push(...soma)
+        if (resultado.length > bits) resultado.shift()
+      }
+      // else if (valor2[0] === "1" && valor1[0] === "0") { // (10,-1) => vai virar 10 + 1
+      //   const valor2Positivo = somarBinariosPositivos(inverteBits(valor2), "1")
+      //   const soma = somarBinariosPositivos(valor1, valor2Positivo)
+      //   resultado.push(...soma)
+      //   if (resultado.length > bits) resultado.shift()
+      // }
+      // else if (valor1[0] === valor2[0] || valor1[0] === "1") {
+      //   const valor2Negativo = somarBinariosPositivos(inverteBits(valor2), "1")
+      //   const soma = somarBinariosPositivos(valor1, valor2Negativo)
+      //   resultado.push(...soma)
+      //   if (resultado.length > bits) resultado.shift()
+      //   }
       break
-    default:
-      break;
   }
+    return resultado.join('')
 
-
-
-  if (valor2[0] === "1") {
-    const representacaoPositiva = somarBinariosPositivos(inverteBits(valor2), "1")
-    return somarBinariosPositivos(valor1, representacaoPositiva)
-  }
 }

@@ -1,5 +1,5 @@
-import { SMparaDec } from "./conversores.ts"
-import { somarEmSM, subtrairEmSM } from "./operacoes.ts";
+import { C2paraDec, SMparaDec } from "./conversores.ts"
+import { operarC2, somarEmSM, subtrairEmSM } from "./operacoes.ts";
 const { log: print } = console
 const [valor1, valor2] = (await Deno.readTextFile("./entrada.txt")).split('\n')
 
@@ -18,3 +18,15 @@ print(SMparaDec(somaEmSM))
 print(SMparaDec(subtracaoEmSM))
 
 // Operando em Complemento a 2:
+print()
+print(C2paraDec(valor1))
+print(C2paraDec(valor2))
+print()
+const somaEmC2 = operarC2(valor1, valor2, 32, "+")
+const subtracaoEmC2 = operarC2(valor1, valor2, 32, "-")
+print()
+print(somaEmC2)
+print(subtracaoEmC2)
+print()
+print(C2paraDec(somaEmC2))
+print(C2paraDec(subtracaoEmC2))

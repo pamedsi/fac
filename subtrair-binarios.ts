@@ -74,7 +74,7 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
     return maiorValor
   }
 
-  if (valor1EmDecimal === valor2EmDecimal) resultado.push("0")
+  if (valor1 === valor2) resultado.push("0")
   else if (valor1EmDecimal >= 0 && valor2EmDecimal < 0) {
     const soma = somarBinariosPositivos(valor1EmBinario, moduloBinario(valor2EmBinario))
     resultado.push(...soma)
