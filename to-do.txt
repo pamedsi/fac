@@ -2,14 +2,14 @@
 - Converter de C2 para binário ✅
 - Converter de SM para decimal ✅
 - Converter de C2 para decimal ✅
-- Calcular a soma em SM
-- Dar o resultado em decimal
-- Calcular a subtração em SM
-- Dar o resultado em decimal
-- Calcular a soma em C2
-- Dar o resultado em decimal
-- Calcular a subtração em C2
-- Dar o resultado em decimal
+- Calcular a soma em SM ✅
+- Dar o resultado em decimal ✅
+- Calcular a subtração em SM ✅
+- Dar o resultado em decimal ✅
+- Calcular a soma em C2 ✅
+- Dar o resultado em decimal ✅
+- Calcular a subtração em C2 ✅
+- Dar o resultado em decimal ✅
 
 Exemplo de entrada:
   A = 10000000000000000000000000001011
@@ -25,7 +25,7 @@ Exemplo de saída:
   A + B = -1 (em decimal convertido de SM)
   A - B = -21 (em decimal convertido de SM)
 ------------------------------------------------------
-  A em decimal = -2.147.483.637 (convertido de c2)
+  A em decimal = -2.147.483.637 (convertido de C2)
   B em decimal = 10 (convertido de c2)
 
   A + B = 10000000000000000000000000010101 (em C2)

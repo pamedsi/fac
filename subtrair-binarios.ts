@@ -1,6 +1,6 @@
 import { C2paraBinario, SMParaBinario } from "./conversores.ts"
-import { modulo, moduloBinario, removerZeros } from "./funcoes-ajudadoras.ts";
-import { somarBinariosPositivos } from "./operacoes.ts"
+import { modulo, moduloBinario, pegarDoProximo, removerZeros } from "./funcoes-ajudadoras.ts";
+import { somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
 
 export const subtrairBinarios = function (valor1: string, valor2: string, tipo?: "SM" | "C2" ) {
   if (tipo && tipo !== "C2" && tipo !== "SM") throw new Error("Tipo inválido! Insira apenas 'SM' para Sinal e Magnitude ou 'C2' para Complemento a 2.")
@@ -26,27 +26,6 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
   const resultado: string[] = []
   let index1 = valor1EmBinario.length - 1
   let index2 = valor2EmBinario.length - 1
-
-  const pegarDoProximo = function (valor: string, index: number) {
-    const posicaoDePegarDoProximo = index
-    const valorAlterado = valor.split('')
-    
-    while (valor[index] !== "1") {
-      index--
-      if (index < 0) break
-    }
-  
-    valorAlterado[index] = "0"
-    index++
-  
-    while (index !== posicaoDePegarDoProximo) {
-      valorAlterado[index] = "1"
-      index++
-    }
-  
-    index = posicaoDePegarDoProximo
-    return valorAlterado.join('')
-  }
 
   const calcularSubtracao = function(maiorValor: string, menorValor: string, valor2EhMaior?: true) {
     if (valor2EhMaior) [index1, index2] = [index2, index1]
@@ -74,7 +53,7 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
     return maiorValor
   }
 
-  if (valor1EmDecimal === valor2EmDecimal) resultado.push("0")
+  if (valor1 === valor2) resultado.push("0")
   else if (valor1EmDecimal >= 0 && valor2EmDecimal < 0) {
     const soma = somarBinariosPositivos(valor1EmBinario, moduloBinario(valor2EmBinario))
     resultado.push(...soma)
