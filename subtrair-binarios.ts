@@ -1,5 +1,5 @@
 import { C2paraBinario, SMParaBinario } from "./conversores.ts"
-import { modulo, moduloBinario, removerZeros } from "./funcoes-ajudadoras.ts";
+import { modulo, moduloBinario, pegarDoProximo, removerZeros } from "./funcoes-ajudadoras.ts";
 import { somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
 
 export const subtrairBinarios = function (valor1: string, valor2: string, tipo?: "SM" | "C2" ) {
@@ -26,27 +26,6 @@ export const subtrairBinarios = function (valor1: string, valor2: string, tipo?:
   const resultado: string[] = []
   let index1 = valor1EmBinario.length - 1
   let index2 = valor2EmBinario.length - 1
-
-  const pegarDoProximo = function (valor: string, index: number) {
-    const posicaoDePegarDoProximo = index
-    const valorAlterado = valor.split('')
-    
-    while (valor[index] !== "1") {
-      index--
-      if (index < 0) break
-    }
-  
-    valorAlterado[index] = "0"
-    index++
-  
-    while (index !== posicaoDePegarDoProximo) {
-      valorAlterado[index] = "1"
-      index++
-    }
-  
-    index = posicaoDePegarDoProximo
-    return valorAlterado.join('')
-  }
 
   const calcularSubtracao = function(maiorValor: string, menorValor: string, valor2EhMaior?: true) {
     if (valor2EhMaior) [index1, index2] = [index2, index1]

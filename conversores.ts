@@ -1,4 +1,4 @@
-import { inverteBits, removerZeros } from "./funcoes-ajudadoras.ts"
+import { inverteBits, modulo, removerZeros } from "./funcoes-ajudadoras.ts"
 import { somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
 
 export const SMParaBinario = function(numeroEmSM: string) {
@@ -17,9 +17,12 @@ export const C2paraBinario = function (numeroEmC2: string) {
 }
 
 export const binarioParaC2 = function (numeroBinario: string, bits: number) {
+  const limitePositivo = (2 ** (bits -1)) - 1
+  const limiteNegativo = (2 ** (bits -1))
+  if (modulo(parseInt(numeroBinario, 2)) > limiteNegativo && numeroBinario[0] === "-") throw new Error(`Não é possível representar este número com ${bits} bits.`);
+  if (modulo(parseInt(numeroBinario, 2)) > limitePositivo) throw new Error(`Não é possível representar este número com ${bits} bits.`);
+  
   if (numeroBinario[0] === "-") {
-    // split('') serve para transformar a string em lista
-    // shift() serve para remover o primeiro elemento da lista, no caso, o sinal "-"
     const representacaoPositiva = numeroBinario.split('')
     representacaoPositiva.shift()
     for (let index = representacaoPositiva.length; index < bits; index++) representacaoPositiva.unshift("0")
@@ -28,7 +31,9 @@ export const binarioParaC2 = function (numeroBinario: string, bits: number) {
     return somarBinariosPositivos(bitsInvertidos, "1")
   }
 
-  //pendente...
+  const complementoA2 = numeroBinario.split('')
+  for (let index = complementoA2.length; index < bits; index++) complementoA2.unshift("0")
+  return complementoA2.join('')
 }
 
 export const SMparaDec = function (numeroEmSM: string) {
