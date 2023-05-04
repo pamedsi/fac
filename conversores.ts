@@ -52,7 +52,15 @@ export const SMparaDec = function (numeroEmSM: string) {
 
 export const C2paraDec = function (numeroEmC2: string) {
   if (numeroEmC2[0] === "0") return SMparaDec(numeroEmC2)
-
   const representacaoPositiva = somarBinariosPositivos(inverteBits(numeroEmC2), "1")
-  return -SMparaDec(representacaoPositiva)
+
+  let numeroEmDecimal = 0
+  let potenciaDeDois = 1
+
+  for (let index = representacaoPositiva.length - 1; index > -1; index--) {
+    if (representacaoPositiva[index] === "1") numeroEmDecimal += potenciaDeDois
+    potenciaDeDois *= 2
+  }
+
+  return -numeroEmDecimal
 }
