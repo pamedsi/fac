@@ -25,8 +25,8 @@ export const somarEmSM = function (valor1: string, valor2: string, bits: number)
     while (soma.length < bits - 1) soma.unshift("0")
     soma.unshift("1")
   }
-  // Resultará num positivo:
-  else if (modulo(valor2EmDecimal) < modulo(valor1EmDecimal) && valor1[0] === "1") {
+  // Resultará num positivo: ex: -10, 1
+  else if (modulo(valor2EmDecimal) >= modulo(valor1EmDecimal) && valor1[0] === "1") {
     const subtracao = subtrairBinarios(valor2SemBitDeSinal, valor1SemBitDeSinal)
     soma.push(...subtracao)
     while (soma.length < bits) soma.unshift("0")
@@ -76,7 +76,8 @@ export const subtrairEmSM = function (valor1: string, valor2: string, bits: numb
   else if (valor1EmDecimal < valor2EmDecimal && valor1EmDecimal >= 0)  {
     const subtracao = subtrairBinarios(valor2SemBitDeSinal, valor1SemBitDeSinal)
     resultado.push(...subtracao)
-    while (resultado.length < bits) resultado.unshift("0")
+    while (resultado.length < bits - 1) resultado.unshift("0")
+    resultado.unshift('1')
   }// Vai resultar num negativo:
   else if (valor1EmDecimal < 0 && valor2EmDecimal < 0 && modulo(valor1EmDecimal) > modulo(valor2EmDecimal)) {
     const subtracao = subtrairBinarios(valor1SemBitDeSinal, valor2SemBitDeSinal)
@@ -104,7 +105,8 @@ export const operarC2 = function(valor1: string, valor2: string, bits: number, o
     if (valor1[0] === valor2[0] && valor1[0] === "0") {
       const soma = somarBinariosPositivos(valor1, valor2).split('')
       if (soma.length === bits) soma.shift()
-      else while (resultado.length < bits) resultado.unshift("0")
+      resultado.push(...soma)
+      while (resultado.length < bits) resultado.unshift("0")
     }
     else if (modulo(valor1EmDecimal) >= modulo(valor2EmDecimal) && valor2[0] === "1") {
       const valor1Positivo = somarBinariosPositivos(inverteBits(valor1), "1")
