@@ -1,5 +1,5 @@
-import { C2paraDec, SMparaDec } from "./conversores.ts"
-import { inverteBits, modulo, removerPrimeiroBit, somarBinariosPositivos } from "./funcoes-ajudadoras.ts"
+import { C2paraDec, SMparaDec } from "../conversores.ts"
+import { inverteBits, modulo, removerPrimeiroBit, somarBinariosPositivos } from "../funcoes-ajudadoras.ts"
 import { subtrairBinarios } from "./subtrair-binarios.ts";
 
 export const somarEmSM = function (valor1: string, valor2: string, bits: number) {
@@ -146,18 +146,6 @@ export const operarC2 = function(valor1: string, valor2: string, bits: number, o
         resultado.push(...soma)
         if (resultado.length > bits) resultado.shift()
       }
-      // else if (valor2[0] === "1" && valor1[0] === "0") { // (10,-1) => vai virar 10 + 1
-      //   const valor2Positivo = somarBinariosPositivos(inverteBits(valor2), "1")
-      //   const soma = somarBinariosPositivos(valor1, valor2Positivo)
-      //   resultado.push(...soma)
-      //   if (resultado.length > bits) resultado.shift()
-      // }
-      // else if (valor1[0] === valor2[0] || valor1[0] === "1") {
-      //   const valor2Negativo = somarBinariosPositivos(inverteBits(valor2), "1")
-      //   const soma = somarBinariosPositivos(valor1, valor2Negativo)
-      //   resultado.push(...soma)
-      //   if (resultado.length > bits) resultado.shift()
-      //   }
       break
   }
     return resultado.join('')
