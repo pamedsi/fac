@@ -62,5 +62,3 @@ try {
   console.error("Erro ao ler o arquivo:", error.message);
   Deno.exit(1);
 }
-
-
