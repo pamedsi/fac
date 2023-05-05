@@ -2,12 +2,10 @@ import { C2paraDec, SMparaDec } from "./utils/conversores.ts"
 import { operarC2, somarEmSM, subtrairEmSM } from "./operacoes/operacoes-em-SM-e-C2.ts"
 
 const { log: print } = console
-
 const [caminhoDoArquivo] = Deno.args;
 
 if (!caminhoDoArquivo) {
-  console.error("É necessário fornecer o caminho do arquivo como argumento.");
-  Deno.exit(1);
+  throw new Error("É necessário fornecer o caminho do arquivo como argumento.")
 }
 
 function main (entrada: string) {
@@ -59,6 +57,5 @@ try {
   print(saida)
   
 } catch (error) {
-  console.error("Erro ao ler o arquivo:", error.message);
-  Deno.exit(1);
+  throw new Error("Erro ao ler o arquivo:", error.message);
 }

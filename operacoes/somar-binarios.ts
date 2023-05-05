@@ -1,6 +1,6 @@
 
-import { modulo, moduloBinario } from "../funcoes-ajudadoras.ts";
-import { somarBinariosPositivos } from "../funcoes-ajudadoras.ts";
+import { modulo, moduloBinario } from "../utils/funcoes-ajudadoras.ts";
+import { somarBinariosPositivos } from "../utils/funcoes-ajudadoras.ts";
 import { subtrairBinarios } from "./subtrair-binarios.ts";
 
 export const somarBinarios = function (valor1: string, valor2: string) {

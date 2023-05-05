@@ -1,8 +1,9 @@
 import { assertEquals } from "https://deno.land/std@0.184.0/testing/asserts.ts";
 import { subtrairBinarios } from "../operacoes/subtrair-binarios.ts";
+import { somarBinarios } from "../operacoes/somar-binarios.ts";
 
-// comando a ser executado no terminal: $ deno test url_testes-personalizados
-// Testes personalizados:
+// comando a ser executado no terminal: $ deno test /testes/testes-personalizados.ts
+// Subtrair:
 
 Deno.test("subtrairBinarios('0', '0') deve retornar '0'", () => {
   const resultado = subtrairBinarios("0", "0")
@@ -131,4 +132,81 @@ Deno.test("subtrairBinarios('-1011', '-111001') deve retornar '-1000100'", () =>
   const resultado = subtrairBinarios("-1011", "111001");
   console.log(resultado)
   assertEquals(resultado, "-1000100");
+});
+
+// Somar
+
+Deno.test("somarBinarios('0', '0') deve retornar '0'", () => {
+  const resultado = somarBinarios("0", "0");
+  assertEquals(resultado, "0");
+});
+
+Deno.test("somarBinarios('0', '1') deve retornar '1'", () => {
+  const resultado = somarBinarios("0", "1");
+  assertEquals(resultado, "1");
+});
+
+Deno.test("somarBinarios('1', '0') deve retornar '1'", () => {
+  const resultado = somarBinarios("1", "0");
+  assertEquals(resultado, "1");
+});
+
+Deno.test("somarBinarios('1', '1') deve retornar '10'", () => {
+  const resultado = somarBinarios("1", "1");
+  assertEquals(resultado, "10");
+});
+
+Deno.test("somarBinarios('101', '101') deve retornar '1010'", () => {
+  const resultado = somarBinarios("101", "101");
+  assertEquals(resultado, "1010");
+});
+
+Deno.test("somarBinarios('1000', '1') deve retornar '1001'", () => {
+  const resultado = somarBinarios("1000", "1");
+  assertEquals(resultado, "1001");
+});
+
+Deno.test("somarBinarios('1111', '1') deve retornar '10000'", () => {
+  const resultado = somarBinarios("1111", "1");
+  assertEquals(resultado, "10000");
+});
+
+Deno.test("somarBinarios('110', '101') deve retornar '1011'", () => {
+  const resultado = somarBinarios("110", "101");
+  assertEquals(resultado, "1011");
+});
+
+Deno.test("somarBinarios('111', '10') deve retornar '1001'", () => {
+  const resultado = somarBinarios("111", "10");
+  assertEquals(resultado, "1001");
+});
+
+Deno.test("somarBinarios('1111', '101') deve retornar '10100'", () => {
+  const resultado = somarBinarios("1111", "101");
+  assertEquals(resultado, "10100");
+});
+
+Deno.test("somarBinarios('101', '10101') deve retornar '11010'", () => {
+  const resultado = somarBinarios("101", "10101");
+  assertEquals(resultado, "11010");
+});
+
+Deno.test("somarBinarios('10101', '101') deve retornar '11010'", () => {
+  const resultado = somarBinarios("10101", "101");
+  assertEquals(resultado, "11010");
+});
+
+Deno.test("somarBinarios('1100', '1011') deve retornar '10111'", () => {
+  const resultado = somarBinarios("1100", "1011");
+  assertEquals(resultado, "10111");
+});
+
+Deno.test("somarBinarios('111000', '10101') deve retornar '1001101'", () => {
+  const resultado = somarBinarios("111000", "10101");
+  assertEquals(resultado, "1001101");
+});
+
+Deno.test("somarBinarios('1101101', '1111001') deve retornar '11100110'", () => {
+  const resultado = somarBinarios("1101101", "1111001");
+  assertEquals(resultado, "11100110");
 });
