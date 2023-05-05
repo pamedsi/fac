@@ -2,45 +2,65 @@ import { C2paraDec, SMparaDec } from "./utils/conversores.ts"
 import { operarC2, somarEmSM, subtrairEmSM } from "./operacoes/operacoes-em-SM-e-C2.ts"
 
 const { log: print } = console
-const entradas = (await Deno.readTextFile("./entradas.txt")).split('\n')
 
-function main(entradas: string[]) {
+const [caminhoDoArquivo] = Deno.args;
 
-  for (let index = 0; index < entradas.length; index++) {
-    
-    if (entradas[index]) {
-      const [valor1, valor2] = [entradas[index], entradas[index + 1]]
-      index++
-
-    // Convertido de Sinal e Magnitude
-    print(SMparaDec(valor1))
-    print(SMparaDec(valor2))
-    print()
-
-    // Operando em Sinal e Magnitude
-    const somaEmSM = somarEmSM(valor1, valor2, 32)
-    const subtracaoEmSM = subtrairEmSM(valor1, valor2, 32)
-    print(somaEmSM)
-
-    print(subtracaoEmSM)
-    print()
-    print(SMparaDec(somaEmSM))
-    print(SMparaDec(subtracaoEmSM))
-
-    // Operando em Complemento a 2:
-    print()
-    print(C2paraDec(valor1))
-    print(C2paraDec(valor2))
-    const somaEmC2 = operarC2(valor1, valor2, 32, "+")
-    const subtracaoEmC2 = operarC2(valor1, valor2, 32, "-")
-    print()
-    print(somaEmC2)
-    print(subtracaoEmC2)
-    print()
-    print(C2paraDec(somaEmC2))
-    print(C2paraDec(subtracaoEmC2))
-
-    }
-  }
+if (!caminhoDoArquivo) {
+  console.error("É necessário fornecer o caminho do arquivo como argumento.");
+  Deno.exit(1);
 }
-main(entradas)
+
+function main (entrada: string) {
+
+  const [valor1, valor2] = entrada.split('\n')
+
+  // Operando em Sinal e Magnitude
+  const valor1DecimalDeSM = SMparaDec(valor1)
+  const valor2DecimalDeSM = SMparaDec(valor2)
+  
+  const somaEmSM = somarEmSM(valor1, valor2, 32)
+  const subtracaoEmSM = subtrairEmSM(valor1, valor2, 32)
+
+  const somaEmSMEmDec = SMparaDec(somaEmSM)
+  const subtracaoEmSMEmDec = SMparaDec(subtracaoEmSM)
+
+  // Operando em Complemento a 2:
+  const valor1DecimalDeC2 =  C2paraDec(valor1)
+  const valor2DecimalDeC2 =  C2paraDec(valor2)
+  
+  const somaEmC2 = operarC2(valor1, valor2, 32, "+")
+  const subtracaoEmC2 = operarC2(valor1, valor2, 32, "-")
+
+  const somaEmC2EmDec = C2paraDec(somaEmC2)
+  const subtracaoEmC2EmDec = C2paraDec(subtracaoEmC2)
+
+  const saida = `${valor1DecimalDeSM}\n${valor2DecimalDeSM}\n
+${somaEmSM}
+${subtracaoEmSM}
+
+${somaEmSMEmDec}
+${subtracaoEmSMEmDec}
+
+${valor1DecimalDeC2}
+${valor2DecimalDeC2}
+
+${somaEmC2}
+${subtracaoEmC2}
+
+${somaEmC2EmDec}
+${subtracaoEmC2EmDec}`
+
+return saida
+}
+
+try {
+  const entrada = await Deno.readTextFile(caminhoDoArquivo);
+  const saida = main(entrada)
+  print(saida)
+  
+} catch (error) {
+  console.error("Erro ao ler o arquivo:", error.message);
+  Deno.exit(1);
+}
+
+

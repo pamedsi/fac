@@ -1,5 +1,5 @@
-import { C2paraDec, SMparaDec } from "../conversores.ts"
-import { inverteBits, modulo, removerPrimeiroBit, somarBinariosPositivos } from "../funcoes-ajudadoras.ts"
+import { C2paraDec, SMparaDec } from "../utils/conversores.ts"
+import { inverteBits, modulo, removerPrimeiroBit, somarBinariosPositivos } from "../utils/funcoes-ajudadoras.ts"
 import { subtrairBinarios } from "./subtrair-binarios.ts";
 
 export const somarEmSM = function (valor1: string, valor2: string, bits: number) {
