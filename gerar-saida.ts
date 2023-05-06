@@ -2,8 +2,8 @@ import { somarEmSM,subtrairEmSM,operarC2 } from "./operacoes/operacoes-em-SM-e-C
 import { SMparaDec,C2paraDec } from "./utils/conversores.ts";
 
 export const main = function (entrada: string) {
-  const [valor1, valor2] = entrada.split('\r\n')
-
+  const [valor1, valor2] = entrada.split('\n')
+  
   // Operando em Sinal e Magnitude
   const valor1DecimalDeSM = SMparaDec(valor1)
   const valor2DecimalDeSM = SMparaDec(valor2)
