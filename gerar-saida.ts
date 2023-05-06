@@ -7,7 +7,7 @@ export const main = function (entrada: string) {
   // Operando em Sinal e Magnitude
   const valor1DecimalDeSM = SMparaDec(valor1)
   const valor2DecimalDeSM = SMparaDec(valor2)
-  
+
   const somaEmSM = somarEmSM(valor1, valor2, 32)
   const subtracaoEmSM = subtrairEmSM(valor1, valor2, 32)
 

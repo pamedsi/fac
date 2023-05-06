@@ -1,5 +1,5 @@
 import { C2paraDec, SMparaDec } from "../utils/conversores.ts"
-import { inverteBits, modulo, removerPrimeiroBit, somarBinariosPositivos } from "../utils/funcoes-ajudadoras.ts"
+import { inverteBits, modulo, removerPrimeiroBit, removerZeros, somarBinariosPositivos } from "../utils/funcoes-ajudadoras.ts"
 import { subtrairBinarios } from "./subtrair-binarios.ts";
 
 export const somarEmSM = function (valor1: string, valor2: string, bits: number) {
@@ -31,7 +31,7 @@ export const somarEmSM = function (valor1: string, valor2: string, bits: number)
     soma.push(...subtracao)
     while (soma.length < bits) soma.unshift("0")
   } // Resultará num positivo:
-  else if (modulo(valor1EmDecimal) > modulo(valor2EmDecimal) && valor1[0] === "0") {
+  else if (modulo(valor1EmDecimal) >= modulo(valor2EmDecimal) && valor1[0] === "0") {
     const subtracao = subtrairBinarios(valor1SemBitDeSinal, valor2SemBitDeSinal)
     soma.push(...subtracao)
     while (soma.length < bits) soma.unshift("0")
@@ -58,15 +58,22 @@ export const subtrairEmSM = function (valor1: string, valor2: string, bits: numb
   // Vai resultar num positivo:
   else if (valor1EmDecimal >= 0 && valor2EmDecimal < 0) {
     const soma = somarBinariosPositivos(valor1SemBitDeSinal, valor2SemBitDeSinal).split('')
-    if (soma.length === bits) soma.shift()
+    if (soma.length > bits) soma.shift()
     resultado.push(...soma)
     while (resultado.length < bits) resultado.unshift("0")
   }// Vai resultar num negativo:
   else if (valor1EmDecimal < 0 && valor2EmDecimal >= 0) {
-    const soma = somarBinariosPositivos((valor1SemBitDeSinal), valor2SemBitDeSinal).split('')
-    if (soma.length === bits) soma.shift()
-    resultado.push(...soma)
-    while (resultado.length < bits) resultado.unshift("1")
+    const soma = somarBinariosPositivos((valor1SemBitDeSinal), valor2SemBitDeSinal)
+    const semZeros = removerZeros(soma).split('')
+    
+    if (semZeros.length === bits) resultado.push(...soma)
+    else {
+      resultado.push(...soma)
+      while (semZeros.length < bits -1) resultado.push("0")
+      resultado.push("1")
+    }
+
+
   }// Vai resultar num positivo:
   else if (valor1EmDecimal > valor2EmDecimal && valor2EmDecimal >= 0)  {
     const subtracao = subtrairBinarios(valor1SemBitDeSinal, valor2SemBitDeSinal)
