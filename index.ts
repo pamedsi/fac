@@ -1,10 +1,11 @@
 import { main } from "./gerar-saida.ts";
 
 const { log: print } = console
-const [caminhoDoArquivo] = Deno.args;
+let [caminhoDoArquivo] = Deno.args;
 
 if (!caminhoDoArquivo) {
-  throw new Error("É necessário fornecer o caminho do arquivo como argumento.")
+  console.info("Arquivo de entrada não foi passado como argumento.\nUtilizando 'entradas/entrada1.txt' como padrão.\n")
+  caminhoDoArquivo = 'entradas/entrada1.txt'
 }
 
 try {
