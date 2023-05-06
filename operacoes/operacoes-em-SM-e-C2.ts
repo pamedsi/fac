@@ -46,7 +46,8 @@ export const somarEmSM = function (valor1: string, valor2: string, bits: number)
 }
 
 export const subtrairEmSM = function (valor1: string, valor2: string, bits: number) {
-  if (valor1.length !== bits || valor2.length !== bits) throw new Error(`Um dos valores passados não possuem ${bits} bits!`);
+  if (valor1.length !== bits || valor2.length !== bits) throw new Error(`Um dos valores passados não possuem ${bits} bits!`)
+  
   // A conversão para decimal é feita apenas para verificar quem é o maior.
   const valor1EmDecimal = SMparaDec(valor1)
   const valor2EmDecimal = SMparaDec(valor2)
@@ -63,16 +64,9 @@ export const subtrairEmSM = function (valor1: string, valor2: string, bits: numb
     while (resultado.length < bits) resultado.unshift("0")
   }// Vai resultar num negativo:
   else if (valor1EmDecimal < 0 && valor2EmDecimal >= 0) {
-    const soma = somarBinariosPositivos((valor1SemBitDeSinal), valor2SemBitDeSinal)
-    const semZeros = removerZeros(soma).split('')
-    
-    if (semZeros.length === bits) resultado.push(...soma)
-    else {
-      resultado.push(...soma)
-      while (semZeros.length < bits -1) resultado.push("0")
-      resultado.push("1")
-    }
-
+    const soma = somarBinariosPositivos((valor1SemBitDeSinal), valor2SemBitDeSinal).split('')
+    resultado.push(...soma) 
+    if (soma.length < bits)  resultado.unshift("1")
 
   }// Vai resultar num positivo:
   else if (valor1EmDecimal > valor2EmDecimal && valor2EmDecimal >= 0)  {

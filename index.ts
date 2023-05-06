@@ -13,5 +13,6 @@ try {
   print(saida)
   
 } catch (error) {
+  console.log(error)
   throw new Error("Erro ao ler o arquivo:", error.message);
 }
