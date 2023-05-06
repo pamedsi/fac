@@ -15,17 +15,21 @@ O arquivo principal do projeto é o "./index.ts"
 É necessário liberar autorização para que o Deno leia outros arquivos no computador, para assim ler os arquivos de entrada.
 Para isso, a flag "--allow-read" deve ser passada.
 
-Além disso é necessário passar como argumento qual arquivo de entrada será lido.
-Ex: se for o arquivo './entradas/entrada1.txt' o comando deverá ser o seguinte:
-
 ```
-$ deno run --allow-read index.ts entradas/entrada1.txt
+$ deno run --allow-read index.ts
 ```
 
+É opcional passar como argumento qual arquivo de entrada será lido.
+Ex: se for o arquivo './entradas/entrada2.txt' o comando deverá ser o seguinte:
+
+```
+$ deno run --allow-read index.ts entradas/entrada2.txt
+```
+Se nenhum argumento for passado, por padrão, o programa irá sempre ler o arquivo './entradas/entrada1.txt'
 Dependendo do sistema operacional, talvez seja necessário adicionar um './' antes do endereço, ex:
 
 ```
-$ deno run --allow-read index.ts ./entradas/entrada1.txt
+$ deno run --allow-read index.ts ./entradas/entrada2.txt
 ```
 
 Caso a primeira forma não funcione, tente a segunda.
