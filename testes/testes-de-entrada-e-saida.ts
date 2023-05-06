@@ -12,9 +12,10 @@ for (const entry of walkSync("./entradas")) {
     const [valor1, valor2] = entrada.split('\n')
 
   Deno.test(`Para ${valor1} e ${valor2} deve retornar:\n\n${saidaEsperada}`, async () => {
-    const entrada = await Deno.readTextFile('./entradas/entrada1.txt')
-    const saidaEsperada = await Deno.readTextFile('./saidas/saida1.txt')
+    const entrada = await Deno.readTextFile(`./entradas/${entry.name}`)
+    const saidaEsperada = await Deno.readTextFile(`./saidas/saida${index}.txt`)
     const saidaDoPrograma = main(entrada)
+    console.log(saidaEsperada === saidaDoPrograma)
     assertEquals(saidaDoPrograma, saidaEsperada);
   });
   console.log(`Teste ${index} passou!`)
