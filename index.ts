@@ -1,4 +1,5 @@
 import { main } from "./gerar-saida.ts";
+// respositório no replit: https://replit.com/@PatrickMelo2/FAC
 
 const { log: print } = console
 let [caminhoDoArquivo] = Deno.args;
