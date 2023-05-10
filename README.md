@@ -1,12 +1,11 @@
 # fac
 
-Este é um projeto que trabalha com representações computacionais atravésde números binários.
-Usa Typescript através do Deno.
-Ele efetua operações simples como somar e subtrair números de 32 bits, ou maiores, caso seja passado como argumento.
+Este é um projeto que trabalha com representações computacionais atravésde números binários e usa Typescript através do Deno.
+Ele efetua as operações de somar e subtrair números de 32 bits, ou de outros bits, caso seja passado como argumento.
 
 Os arquivos de entrada estão na pasta './entradas' e devem funcionar em conjunto com a pasta './saidas'.
 Para cada entrada na pasta, ex: './entradas/entrada1.txt' haverá uma saída correspondente na pasta de saídas, ex: './saidas/saida1.txt'.
-O nome dos arquivos serão sempre a palavra "entrada" ou "saida" seguido de um número, que identifica a entrada aquela saída pertence, e depois a extensão ".txt"
+O nome dos arquivos serão sempre a palavra "entrada" ou "saida" seguido de um número, que identifica a entrada àquela saída pertence, e depois a extensão ".txt".
 
 Por exemplo, quando passado como argumento de entrada o arquivo './entradas/entrada1.txt' a saída deverá ser idênctica ao texto do arquivo'./saidas/saida1.txt'
 O mesmo para './entradas/entrada2.txt' e './saidas/saida2.txt' e assim sucessivamente.
